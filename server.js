@@ -9,11 +9,10 @@ const mongo = require('mongodb'); //https://www.mongodb.com/
 const mongoose = require('mongoose'); //https://www.npmjs.com/package/mongoose
 const session = require('express-session'); //https://www.npmjs.com/package/express-session
 const validator = require('express-validator');
-
 require('dotenv').config(); // gegeven voor de mongodb server
 
 
-// ---- CMD-BT Slides MongoDB ---//
+// ---- CMD-BT Slides MongoDB ---// 
 
 var db = null;
 var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
@@ -58,14 +57,14 @@ app.use(loginTest);
 app.use(addRegis);
 
 
-app.get('/profile/:id', findProfile);
-app.get('/profile', findProfile);
+app.get('/profile'+'/:id', findProfile);
 app.get('/matchprofile', redirectFeed);
 app.get('/list', listPage);
 app.get('/feed', feedList)
 app.get('/register', register);
 app.get('/login', login)
 app.get('/matchprofile/:id', getmatch);
+
 app.post('/profile/:id', addRegis);
 // leest de form en slaat het op in een js code
 app.use(errNotFound);
@@ -152,8 +151,7 @@ function getmatch(req, res, next) {
   function done(err, data) {
     if (err) {
       next(err)
-    } if(!req.session.user){
-      
+    } if(!req.session.user === data.email){
       res.redirect('/login');
     }else {
       res.render('pages/matchprofile.ejs', {

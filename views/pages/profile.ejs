@@ -11,7 +11,9 @@
       <img src="/upload/<%= data.file %>" alt="img">
       <% } %>
     </div>
-    <div><a href="/">log out</a></div>
+    <form method="post" action="/">
+      <button type=submit >log out</button>
+    </form>
   </div>
   <section class="user-bio">
     <h1 id="username"><span id="age"><%= data.age%></span><%= data.name %></h1>

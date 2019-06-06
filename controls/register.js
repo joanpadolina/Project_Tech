@@ -21,7 +21,6 @@ mongo.MongoClient.connect(url, {
   if (err) {
     console.log(err);
   } else {
-    console.log('You now have access to ' + url);
   }
   db = client.db(process.env.DB_NAME)
 })

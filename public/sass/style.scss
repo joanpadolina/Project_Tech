@@ -624,7 +624,6 @@ body.user {
   .cont-meme {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 8em;
 
     div.addmeme {
       .sendmeme {
@@ -643,6 +642,32 @@ body.user {
         }
       }
     }
+  }
+}
+body.user-edit{
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  justify-content: center;
+  display: block;
+  position: relative;
+  font-family: Quicksand;
+  text-align: center;
+  color: black;
+  
+  label{
+    display:block;
+    width:100%;
+  }
+  input{
+    display: block;
+    width:100%;
+    margin:.4em;
+  }
+  textarea{
+    display: block;
+    width:100%;
   }
 }
 // --------- Mediaqueries ------------//

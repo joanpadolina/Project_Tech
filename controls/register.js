@@ -51,3 +51,9 @@ router.post('/register', upload.single('file'), function(req, res, next) {
 }
 )
 module.exports=router;
+
+
+
+
+
+module.exports = router;

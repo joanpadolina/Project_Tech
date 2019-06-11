@@ -455,8 +455,7 @@ body.user {
       max-height: 100%; }
   body.user .cont-meme {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 8em; }
+    flex-wrap: wrap; }
     body.user .cont-meme div.addmeme .sendmeme {
       width: 8em;
       height: 8em;
@@ -469,6 +468,28 @@ body.user {
         width: 100%;
         height: 100%;
         border-radius: 2em; }
+
+body.user-edit {
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  height: 100vh;
+  justify-content: center;
+  display: block;
+  position: relative;
+  font-family: Quicksand;
+  text-align: center;
+  color: black; }
+  body.user-edit label {
+    display: block;
+    width: 100%; }
+  body.user-edit input {
+    display: block;
+    width: 100%;
+    margin: .4em; }
+  body.user-edit textarea {
+    display: block;
+    width: 100%; }
 
 @media only screen and (min-width: 48.0625em) and (max-width: 100em) {
   body {

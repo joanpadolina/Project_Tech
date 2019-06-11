@@ -16,9 +16,15 @@ let user = require('./controls/userschema.js')
 require('dotenv').config(); // gegeven voor de mongodb server
 
 
+
 // ---- CMD-BT Slides MongoDB ---// 
 
-var db = null;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('yeh mongoose is on');
+});
+
 var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
 
 mongo.MongoClient.connect(url, {
@@ -44,16 +50,11 @@ app.set('view engine', 'ejs');
 // session //
 app.set('trust proxy', 1) // trust first proxy
 app.use(cookie());
-
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    secure: true
-  }
 }))
-
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -83,28 +84,33 @@ app.use(addRegis);
 
 app.get('/matchprofile', matchProfile);
 app.get('/list', listPage);
-app.get('/feed', feedList)
+app.get('/feed', feedList);
 app.get('/register', register);
 app.get('/login', login)
-app.get('/matchprofile/:id', getmatch);
+app.get('/edit', edit);
+app.get('/matchprofile/:id', getMatch);
 app.get('/profile/:id', findProfile);
+app.get('/delete', deleteAccount);
+app.get('/logout', logOut);
 
-app.get('/profile', logOut);
+app.post('/edit', function(req, res, data){
+  let name = req.body.id 
+  let age = req.body.age 
+  let id = req.params.id
+  db.collection('account').update({},{
+    name:req.body.name,
+    age:req.body.age,
+    email:req.body.email,
+    password:req.body.password,
+    file: req.file ? req.file.filename : null,
+  });
+  res.redirect('/profile/'+ data.insertedId);
+  console.log('changes added');
+});
 app.post('/profile/:id', addRegis);
 // leest de form en slaat het op in een js code
 app.use(errNotFound);
 app.listen(port, servermsg);
-
-
-
-// middleware function to check for logged-in users
-var sessionChecker = (req, res, next) => {
-  if (req.session.user && req.cookies.user) {
-    res.redirect('/login');
-  } else {
-    next();
-  }
-};
 
 
 //--- pagina render---//
@@ -137,17 +143,23 @@ function ownProfile(req, res) {
   res.render('pages/profile');
 }
 
+function edit(req, res, next){
+  res.render('pages/editprofile')
+}
+
 function matchProfile(req, res) {
   res.render('pages/matchprofile')
 }
 
 function listPage(req, res) {
   res.render('pages/list');
+
 }
 
 function matchFeed(req, res) {
   res.render('pages/feed');
 }
+
 
 function dbCollect(req, res, next) { // require, response, alles tussen de req en res (middleware)
   db.collecction('account');
@@ -163,20 +175,13 @@ function logOut(req, res, next) {
     if (err) {
       return next(err);
     } else {
-      return res.redirect('/');
+      res.redirect('/');
       console.log('Je bent nu uitgelogd');
     }
+
   })
-}
 
-function isLoggedIn(req, res, next) {
-  // check if user is logged in with passport
-  if (req.session.user = user()) {
-    return next();
-  } else
-    res.redirect('/login');
 }
-
 function findProfile(req, res, next) {
   let id = req.params.id
   db.collection('account').findOne({
@@ -195,23 +200,45 @@ function findProfile(req, res, next) {
   }
 }
 
-function getmatch(req, res, next) {
+function deleteAccount(req, res, next){
+  db.collection('account').removeOne({});
+  console.log('account gewist');
+  res.redirect('/');
+}
+
+// session try not working keeps redirecting
+// function getMatch(req, res, next) {
+//   if (!req.session.user) {
+//     res.render('pages/login');
+//   }
+//   db.collection('account').findOne( done);
+//   function done(err, data){
+//     res.redirect('matchprofile', {
+//       title:'Matches',
+//       user: req.session.user,
+//       data:data
+//     })
+//   }
+// } 
+
+function getMatch(req, res, next) {
   let id = req.params.id
   db.collection('account').findOne({
     _id: new mongo.ObjectID(id)
   }, done)
 
   function done(err, data) {
-    if (err) {
-      next(err)
-    } else {
-      user = req.session.user;
-      res.render('pages/matchprofile', {
-        data: data
-      })
-    }
+  if (err) {
+        next(err)
+      } else {
+        res.render('pages/matchprofile', {
+          data: data,
+          user : req.session.user
+        })
+      }    
   }
 }
+
 
 function feedList(req, res, next) {
   db.collection("account").find().toArray(function(err, data) {

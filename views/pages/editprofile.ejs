@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<% include ../partials/head %>
+<body class="user-edit">
+  <% include ../partials/navbar %>
+<div class="user-prof">
+  
+
+  <section>
+    <div class="cancel">
+      <a href="/profile">cancel</a>
+    </div>
+            <form action="/edit" id='edit_form' method="POST">
+              <fieldset>
+                <legend>Edit profile</legend>
+                <label> name
+                    <input type="text" name="name">
+                  </label>
+                  <label> age
+                    <input type="number" name="age">
+                  </label>
+                <label> email
+                  <input type="text" name="email" >
+                </label>
+                <label> password
+                  <input type="password" name="password" value="">
+                </label>
+              </fieldset>
+
+              <button type="submit" value="submit">Send</button>
+            </form>
+            
+        </section>
+        </div>
+</body>
+
+
+</html>

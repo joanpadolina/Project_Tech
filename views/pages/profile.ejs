@@ -11,9 +11,9 @@
       <img src="/upload/<%= data.file %>" alt="img">
       <% } %>
     </div>
-    <form method="post" action="/">
-      <button type=submit >log out</button>
-    </form>
+    
+    <div><a href="/logout">log out</a></div>
+    <div><a href="/edit">edit</a></div>
   </div>
   <section class="user-bio">
     <h1 id="username"><span id="age"><%= data.age%></span><%= data.name %></h1>
@@ -54,6 +54,8 @@
   </div>
   <div id="add">
     <a href=/add>add here</a> </div> <% include tail.ejs %>
+     <a href="/delete" class="delete" type="submit" value="submit">Verwijder account</a>
+    
 </body>
 
 

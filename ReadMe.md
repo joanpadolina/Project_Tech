@@ -46,7 +46,14 @@ DB_PORT= -any port like 3000-
 DB_NAME= -name your database- 
 SESSION_SECRET= -secure session cookies-
 ```
+## Mongo Database Example
 
+![Database](https://i.imgur.com/vMubu7j.png)
+* Naam
+* Leeftijd
+* State
+* Email
+* Profile image
 
 # What's working
 1. Insert form to MongoDB

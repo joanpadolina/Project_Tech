@@ -49,8 +49,8 @@ SESSION_SECRET= -secure session cookies-
 ## Mongo Database Example
 
 ![Database](https://i.imgur.com/vMubu7j.png)
-* Naam
-* Leeftijd
+* Name
+* Age
 * State
 * Email
 * Profile image

@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 
 <% include ../partials/head %>
-<body class="user-edit">
-  <% include ../partials/navbar %>
-<div class="user-prof">
-  
+<title>register</title>
 
-  <section>
-    <div class="cancel">
-      <a href="/profile">cancel</a>
-    </div>
-            <form action="/edit" id='edit_form' method="POST">
-              <fieldset>
-                <legend>Edit profile</legend>
-                <label> name
-                    <input type="text" name="name">
-                  </label>
-                  <label> age
-                    <input type="number" name="age">
-                  </label>
-                <label> email
-                  <input type="text" name="email" >
-                </label>
-                <label> password
-                  <input type="password" name="password" value="">
-                </label>
-              </fieldset>
+<body class="regis">
+  <div class="containlogo">
+    <section class="logo">
+      <!-- <img src="./assets/logo/logo.svg" alt="logojome"> -->
+      <a href="/"><img class="jomelogo" src="../assets/logo/jome.svg" alt="logojome"></a>
+      <p>True love through laughs</p>
+    </section>
 
-              <button type="submit" value="submit">Send</button>
-            </form>
-            
-        </section>
-        </div>
+    <section class="reg">
+      <h2>Edit</h2>
+    </section>
+    <form method="POST" action="/updateFunction">
+      <fieldset>
+        <legend>Personal</legend>
+        <label for="name">naam</label>
+        <input type="text" name="name" id="name" placeholder="">
+        <label for="age">leeftijd</label>
+        <input type="text" name="age" id="age" placeholder="">
+        <label for="sex">geslacht</label>
+        <select id="sex" name="sex"  >
+          <option value="man">man</option>
+          <option value="woman">vrouw</option>
+        </select>
+
+      </fieldset>
+      <fieldset>
+        <legend>Log-in</legend>
+        <label for="email">email</label>
+        <input type="email" name="email" id="email" placeholder="">
+        <label for="password">wachtwoord</label>
+        <input type="password" name="password" id="password" placeholder="">
+      </fieldset>
+      <label for="profilePic">Kies afbeelding</label>
+      <input type="file" name="profilePic" id="profilePic" class="inputfile" accept="img/*">
+
+      <button class="meldaan" type="submit">Wijzig</button>
+
+    </form>
+
+    <% include tail.ejs %>
 </body>
-
 
 </html>

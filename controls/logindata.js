@@ -1,76 +1,60 @@
-const express  = require('express');
-const app = express();
-const router = express.Router();
-const mongo = require('mongodb'); //https://www.mongodb.com/
-const session = require('express-session');
-let user = require('../controls/userschema.js');
-// ---- CMD-BT Slides MongoDB ---//
+const express = require('express');
+const router = new express.Router();
+const User = require('../controls/userschema.js');
+const bcrypt = require('bcrypt');
 
-var db = null;
-var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
-
-console.log('----------- Logindata added ----------------')
-mongo.MongoClient.connect(url, {
-  useNewUrlParser: true
-}, function(err, client) {
-  if (err) {
-    console.log(err);
-  } else {
-  }
-  db = client.db(process.env.DB_NAME)
-})
-
-router.post('/login', function(req, res, next) { // hulp van bas
-
-  const password = req.body.password;
-  const email = req.body.email;
-  db.collection('account').findOne({
+router.post('/login', (req, res, next) => {
+  User.findOne({
     email: req.body.email,
-    password: req.body.password
-  }, done);
-
-  function done(err, data) {
-    if (!data) {
-      res.status(404).send('Email of wachtwoordt wordt niet herkend')
+  }, (err, currentUser) => {
+    console.log(currentUser);
+    console.log(req.body.password);
+    const password = bcrypt.compareSync(req.body.password, currentUser.password);
+    if (password === true) {
+      console.log('correct');
+      req.session.user = currentUser;
+      res.redirect(`/profile/${req.session.user._id}`);
     } else {
-      if(email === data.email){
-        res.redirect('/profile/' + data._id);
-        console.log('added session user')
-      }else{
-        res.status(401).send('Account wordt niet herkend')
-      }
+      console.log('incorrect');
+      res.status(401).send('Account wordt niet herkend');
     }
-  }
-  // 
-  // router.post('/login', function(req, res, next) { // hulp van bas
-  // 
-  //   const password = req.body.password;
-  //   const email = req.body.email;
-  //   db.user.find({
-  //     email:email    
-  //   },
-  // 
-  //   function done(err, user) {
-  //     if (!user) {
-  //       res.status(404).send('Email of wachtwoordt wordt niet herkend')
-  //     } else {
-  //       if(email === user.email){
-  //         res.redirect('/profile/' + user._id);
-  //         console.log('added session user')
-  //       }else{
-  //         res.status(401).send('Account wordt niet herkend')
-  //       }
-  //     }
-  //   })
+  });
+});
 
-  // req.session.user = accounts[0].name;
-  // if(req.session.user) {
-  //   res.render('pages/login');  
-  // } else {
-  //   res.redirect(401).send('Geen session!')
-  // }
-  // console.log(req.session);
-}
-)
+router.get('/login', (req, res ) => {
+  res.render('pages/login');
+});
 
-module.exports=router;
+
+//
+// router.post('/login', function(req, res, next) { // hulp van bas
+//
+//   const password = req.body.password;
+//   const email = req.body.email;
+//   db.user.find({
+//     email:email
+//   },
+//
+//   function done(err, user) {
+//     if (!user) {
+//       res.status(404).send('Email of wachtwoordt wordt niet herkend')
+//     } else {
+//       if(email === user.email){
+//         res.redirect('/profile/' + user._id);
+//         console.log('added session user')
+//       }else{
+//         res.status(401).send('Account wordt niet herkend')
+//       }
+//     }
+//   })
+
+// req.session.user = accounts[0].name;
+// if(req.session.user) {
+//   res.render('pages/login');
+// } else {
+//   res.redirect(401).send('Geen session!')
+// }
+// console.log(req.session);
+
+
+module.exports = router;

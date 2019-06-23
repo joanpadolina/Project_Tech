@@ -1,0 +1,30 @@
+{
+    "extends": 
+      "eslint-config-google",
+     "plugins": [
+     "jsdoc"
+     ],
+
+    "rules": {
+        "max-len": 'off',
+        "require-jsdoc": 0,
+        "indent": "off"
+        
+    },
+    "settings": {
+        "jsdoc": {
+            "tagNamePreference": {
+                "param": "arg",
+                "returns": "return"
+            }
+        }
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+
+    "env": {
+        "es6": true
+    },
+    "parser": "babel-eslint"
+}

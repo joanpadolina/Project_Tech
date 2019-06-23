@@ -1,59 +1,47 @@
-const express  = require('express');
-const app = express();
-const router = express.Router();
-const mongo = require('mongodb'); //https://www.mongodb.com/
-const multer = require('multer'); //https://www.npmjs.com/package/multer
-const slug = require('slug'); //https://www.npmjs.com/package/slug
-
+const express = require('express');
+const router = new express.Router();
+const multer = require('multer'); // https://www.npmjs.com/package/multer
+const User = require('./userschema.js');
+const path = require('path');
+const bcrypt = require('bcrypt');
+const saltRounds = 11;
 // foto's opslaan in een map //
-const upload = multer({
-  dest: 'public/upload'
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join('./public/upload/'));
+  },
+  filename: (req, file, cb) => {
+    cb(null, new Date().toISOString().replace() + file.originalname);
+  },
 });
 
-// ---- CMD-BT Slides MongoDB ---//
-
-var db = null;
-var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
-
-mongo.MongoClient.connect(url, {
-  useNewUrlParser: true
-}, function(err, client) {
-  if (err) {
-    console.log(err);
-  } else {
-  }
-  db = client.db(process.env.DB_NAME)
-})
-
-router.post('/register', upload.single('file'), function(req, res, next) {
-  //slugify url friendly
-  let id = slug(req.body.name).toLowerCase()
-  // ---- account toevoegen aan collectie moongo Compass ----//
-
-  db.collection('account').insertOne({
-    name: req.body.name,
-    age: req.body.age,
-    state: req.body.state,
-    email: req.body.email,
-    password: req.body.password,
-    file: req.file ? req.file.filename : null, // if else
-  }, done)
-
-  function done(err, data) {
-    if (err) {
-      console.log(next(err))
-    } else {
-      console.log(id + ' is added to the database.');
-      res.redirect('/profile/' + data.insertedId)
-
-    }
-  }
-}
-)
-module.exports=router;
+const upload = multer({
+  storage: storage,
+});
+router.post('/register', upload.single('file'), (req, res, next) => {
+  const hash = bcrypt.hashSync(req.body.password, saltRounds);
+  const newuser = new User();
+  newuser.name = req.body.name;
+  newuser.age = req.body.age;
+  newuser.sex = req.body.sex;
+  newuser.email = req.body.email;
+  newuser.password = hash;
+  newuser.file = req.file ? ('/upload/' + req.file.filename) : null,
 
 
-
-
-
+    newuser.save((err, savedUser) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send;
+      } else {
+        console.log('Gelukt!');
+        console.log(savedUser);
+        req.session.user = savedUser;
+        res.redirect(`/profile/${req.session.user._id}`);
+      }
+    });
+});
+router.get('/register', (req, res) => {
+  res.render('pages/register');
+});
 module.exports = router;

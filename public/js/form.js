@@ -37,7 +37,7 @@ function animatedForm() {
         nextSlide(parent, nextForm);
       } else if (input.type === 'password' && validUser(input)) {
         nextSlide(parent, nextForm);
-      } else if (input.name === 'profilePic' && validFile(input)) {
+      } else if (input.name === 'file' && validFile(input)) {
         nextSlide(parent, nextForm);
       } else {
         parent.style.animation = 'shake 20ms ease';

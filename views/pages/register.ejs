@@ -2,6 +2,7 @@
 <html lang="en">
 
 <% include ../partials/head %>
+<!-- <link rel="stylesheet" href="../css/form.css"> -->
 <title>register</title>
 
 <body class="regis">
@@ -18,33 +19,59 @@
         Om gebruik te maken van deze app dient u de volgende gegevens in te vullen.
       </article>
     </section>
-    <form method="post" enctype="multipart/form-data">
-      <fieldset>
-        <legend>Personal</legend>
-        <label for="name">name</label>
-        <input type="text" name="name" id="name" placeholder="Ruben" value="" required>
-        <label for="age">age</label>
-        <input type="text" name="age" id="age" required>
-        <label for="state">sex</label>
-        <select id="state" name="state"  required>
-          <option value="man">man</option>
-          <option value="woman">woman</option>
-        </select>
+    <form method="POST" action="/register" enctype="multipart/form-data">
+      <legend>Login</legend>
+            <div class="name-form">
 
-      </fieldset>
-      <fieldset>
-        <legend>Log-in</legend>
-        <label for="email">email</label>
-        <input type="email" name="email" id="email" placeholder="abc@gmail.com" value="" required>
-        <label for="pass">password</label>
-        <input type="password" name="password" id="pass" placeholder="****" value="" required>
-        <!-- <label for="re-pass">repeat password</label>
-        <input type="password" name="password" id="re-pass" placeholder="****" value="" required> -->
-      </fieldset>
-      <label for="file">Add picture</label>
-      <input type="file" name="file" id="file" class="inputfile" accept=img/*>
+              <label for="name">naam</label>
+              <i class="fas fa-user"></i>
+              <input type="text" name="name" id="name" placeholder="naam" value="" required>
+              <i class="fas fa-angle-right"></i>
 
-      <button class="meldaan" type="submit">start looking</button>
+            </div>
+            <div class="age-form inactive">
+
+              <label for="age">leeftijd</label>
+              <i class="fas fa-birthday-cake"></i>
+              <input type="number" name="age" id="age" placeholder="leeftijd" required>
+              <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="sex-form inactive">
+
+              <label for="state">geslacht</label>
+              <i class="fas fa-venus-mars"></i>
+              <select id="state" name="state" required>
+                <option value="choose" placeholder="man/vrouw">Kies geslacht</option>
+                <option value="man" name="man">man</option>
+
+                <option value="woman" name="woman">vrouw</option>
+
+              </select>
+              <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="email-form inactive">
+              <label for="email">email</label>
+              <i class="fas fa-envelope"></i>
+              <input type="email" name="email" id="email" placeholder="email" value="" required>
+              <i class="fas fa-angle-right"></i>
+            </div>
+
+            <div class="pass-form inactive">
+              <label for="pass">wachtwoord</label>
+              <i class="fas fa-key"></i>
+              <input type="password" name="password" id="pass" placeholder="****" value="" required>
+              <i class="fas fa-angle-right"></i>
+
+            </div>
+
+            <div class="pass-form inactive">
+              <label for="file">Kies profiel foto</label>
+              <input type="file" name="file" id="file" class="inputfile" accept=img/*> 
+              <i class="fas fa-angle-right"></i>
+            </div>
+            <div class="pass-form2 inactive">
+              <button class="meldaan" type="submit">begin met zoeken</button>
+            </div>
 
     </form>
 

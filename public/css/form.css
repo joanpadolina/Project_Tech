@@ -1,39 +1,12 @@
-/* body.regis {
-  width: 25em;
-}
-
-body.regis .reg,
-body.regis p {
-  margin-bottom: 1em;
-  text-align: center;
-}
-
-body.regis form {
-  padding-bottom: 2em;
-  margin: auto auto 4em;
-}
-
-body.regis form fieldset {
-  border: solid white 0.12em;
-}
-
-body.regis form fieldset label {
-  width: 100%;
-  display: block;
-  margin: 0.5em;
-}
-
-body.regis form fieldset input {
-  padding: 0.5em;
-  width: 90%;
-}
-
-/* body.regis {
+body.regis {
   width: 25em;
   height: 100vh;
   display: flex;
   position: relative;
   background: #4EA8D9;
+}
+label, legend{
+      display: none;
 }
 
 body.regis .name-form,
@@ -42,11 +15,11 @@ body.regis .sex-form,
 body.regis .email-form,
 body.regis .pass-form {
   position: absolute;
-  top: 50%;
+  top: 22em;
   left: 50%;
   transform: translate(-50%, -50%);
   height: 2.5em;
-  width: 25em;
+  width: 22em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,4 +73,4 @@ body.regis div.active {
   100% {
     transform: translate(-50%, -50%) translateX(1%);
   }
-}  */ */
+}

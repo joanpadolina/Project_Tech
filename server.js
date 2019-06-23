@@ -45,7 +45,7 @@ const profile = require('./controls/profile.js');
 const matchFeed = require('./controls/matchfeed.js');
 const removeAccount = require('./controls/delete.js');
 const updateAccount = require('./controls/update.js');
-
+const logOut = require('./controls/logout.js');
 // pages use from routing //
 app.use(loginTest);
 app.use(addRegis);
@@ -54,6 +54,7 @@ app.use(feed);
 app.use(matchFeed);
 app.use(removeAccount);
 app.use(updateAccount);
+app.use(logOut);
 
 
 // --- index render---//

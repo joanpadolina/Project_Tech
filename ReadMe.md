@@ -67,11 +67,30 @@ password: String
 * Profile image
 
 # What's working
-1. Insert form to MongoDB
+1. Insert form to MongoDB Atlas
 1. Get info in a Template (dynamic info)
-1. Login with existing account from MongoDB
+1. Login with existing account from MongoDB Atlas
 1. Show full database (who has registered) on the browser
+1. Log Out or Delete account
+1. Sessions
+1. Edit information
+
+
 
 
 # MIT
 [MIT](https://github.com/joanpadolina/Project_Tech/blob/master/LICENSE)
+
+
+### With help from
+_Danny_•
+_Annemarleen_•
+_Rijk_•
+_Stackoverflow_•
+_Google_•
+_CMDBTA_•
+_MDN_•
+_Rico_•
+_Wiebe_•
+_Bas_•
+_Coen_

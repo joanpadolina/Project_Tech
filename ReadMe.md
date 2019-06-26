@@ -12,7 +12,7 @@ Obviously a good sense humor is where you can share weird jokes with eachother. 
 
 ## Wiki
 
-Follow the progress on my [wiki](https://github.com/joanpadolina/Project_Tech.wiki.git).
+Follow the progress on my [wiki](https://github.com/joanpadolina/Project_Tech/wiki).
 
 # Interested? Clone the following on your terminal:
 
